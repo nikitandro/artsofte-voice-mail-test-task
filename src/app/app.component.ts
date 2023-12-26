@@ -86,6 +86,12 @@ export class AppComponent implements OnInit, OnDestroy {
     }
   }
 
+  public getTimeFormatted(timeString: string): Date {
+    const hours = Math.floor(parseInt(timeString) / 60);
+    const minutes = parseInt(timeString) % 60;
+    return new Date(0, 0, 0, hours, minutes);
+  }
+
   public subscribeToFilteringFormChanges() {
     const formGroupSubscription = this.formGroup.valueChanges
       .pipe(debounceTime(300))

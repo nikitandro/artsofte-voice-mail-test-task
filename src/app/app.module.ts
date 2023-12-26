@@ -4,7 +4,6 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MessageItem } from './components/message-item/message-item.component';
 import {
   VOICE_MESSAGE_SERVICE_TOKEN,
   VoiceMessageService,
@@ -15,7 +14,7 @@ import { PaginatePipe } from './pipes/paginate.pipe';
 export const API_URL_TOKEN = new InjectionToken<string>('API_URL');
 
 @NgModule({
-  declarations: [AppComponent, MessageItem],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

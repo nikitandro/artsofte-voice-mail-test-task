@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
-import { Datum } from './MessageModel';
+import { Message } from './MessageModel';
 
 export interface IVoiceMessageService {
-  getMessages(): Observable<Datum[]>;
+  getMessages(): Observable<Message[]>;
 }

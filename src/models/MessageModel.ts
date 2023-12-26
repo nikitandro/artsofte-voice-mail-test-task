@@ -3,10 +3,10 @@ export type Data = {
 };
 
 export type Root = {
-  data: Datum[];
+  data: Message[];
 };
 
-export type Datum = {
+export type Message = {
   received: string[];
   from: string[];
   to: string[];

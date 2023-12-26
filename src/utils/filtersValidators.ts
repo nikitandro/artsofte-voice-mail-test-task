@@ -1,9 +1,9 @@
 import { Period } from '../models/Period';
-import { Datum } from '../models/MessageModel';
+import { Message } from '../models/MessageModel';
 import { Duration } from '../models/Duration';
 import { Params } from '@angular/router';
 
-export const doesPeriodMatch = (periodParam: unknown, message: Datum) => {
+export const doesPeriodMatch = (periodParam: unknown, message: Message) => {
   const today = new Date();
   const yesterday = new Date();
   yesterday.setDate(yesterday.getDate() - 1);
@@ -19,7 +19,7 @@ export const doesPeriodMatch = (periodParam: unknown, message: Datum) => {
   }
 };
 
-export const doesPhoneMatch = (phone: unknown, message: Datum) => {
+export const doesPhoneMatch = (phone: unknown, message: Message) => {
   if (phone && typeof phone === 'string') {
     const escapedPhoneParam = phone.replace(
       /([.*+?^=!:${}()|\[\]\/\\])/g,
@@ -32,7 +32,7 @@ export const doesPhoneMatch = (phone: unknown, message: Datum) => {
   return true;
 };
 
-export const doesDurationMatch = (duration: unknown, message: Datum) => {
+export const doesDurationMatch = (duration: unknown, message: Message) => {
   if (isDuration(duration) && duration !== Duration.All) {
     return Number(message.duration[0]) <= Number(duration);
   }
@@ -45,7 +45,7 @@ export const isDuration = (val: any): val is Duration => {
 };
 
 export const filterMessages = (params: Params) => {
-  return (messages: Datum[]) => {
+  return (messages: Message[]) => {
     return messages.filter((message) => {
       const durationParam = params['duration'];
       let matchesDuration = doesDurationMatch(durationParam, message);

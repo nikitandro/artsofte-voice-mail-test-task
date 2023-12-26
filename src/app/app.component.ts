@@ -14,7 +14,7 @@ import {
   switchMap,
   tap,
 } from 'rxjs';
-import { Datum } from 'src/models/MessageModel';
+import { Message } from 'src/models/MessageModel';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Period } from '../models/Period';
 import { Duration } from '../models/Duration';
@@ -23,11 +23,6 @@ import { getValidFilterFormParams } from '../utils/getValidFilterFormParams';
 import { filterMessages } from '../utils/filtersValidators';
 import { IVoiceMessageService } from '../models/IVoiceMessageServie';
 
-type FilterForm = {
-  period: Period;
-  phone: string;
-  duration: Duration;
-};
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -43,7 +38,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   private _subscriptions: Subscription[] = [];
 
-  public messages$: Observable<Datum[]>;
+  public messages$: Observable<Message[]>;
 
   public queryParams: Params = {};
 
@@ -137,7 +132,7 @@ export class AppComponent implements OnInit, OnDestroy {
     });
   }
 
-  public setPagesCount = (messages: Datum[]) => {
+  public setPagesCount = (messages: Message[]) => {
     this.pagesCount = Math.ceil(messages.length / this.offset);
   };
 

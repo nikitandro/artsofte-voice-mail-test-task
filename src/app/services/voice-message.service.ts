@@ -14,7 +14,7 @@ export class VoiceMessageService implements IVoiceMessageService {
   constructor(private httpService: HttpClient) {}
   public getMessages() {
     return this.httpService
-      .get('http://localhost:3000/', { responseType: 'text' })
+      .get('../../assets/data.xml', { responseType: 'text' })
       .pipe(
         switchMap((value) => {
           return fromPromise(

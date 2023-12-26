@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { InjectionToken, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -11,6 +11,8 @@ import {
 } from './services/voice-message.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PaginatePipe } from './pipes/paginate.pipe';
+
+export const API_URL_TOKEN = new InjectionToken<string>('API_URL');
 
 @NgModule({
   declarations: [AppComponent, MessageItem],

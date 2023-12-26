@@ -1,1 +1,92 @@
-<div class="">init</div>
+<div class="flex justify-center w-[100%]">
+  <div class="w-[1000px] border-[1px]">
+    <div class="py-4 px-6 border-b">
+      <h1 class="text-2xl">Голосовая почта</h1>
+    </div>
+    <div class="px-6 py-6">
+      <form class="flex flex-row justify-between items-end" [formGroup]="formGroup">
+        <div class="flex flex-col">
+          <label for="period" class="font-bold">Период</label>
+          <select name="period" id="period" class="px-2 py-2 border" formControlName="period">
+            <option [value]="Period.AllTime">Всё время</option>
+            <option [value]="Period.Today">Сегодня</option>
+            <option [value]="Period.Yesterday">Вчера</option>
+          </select>
+        </div>
+        <div class="flex flex-col">
+          <label for="phone" class="font-bold">Номер</label>
+          <input name="phone" id="phone" type="text" class="px-2 py-2 border" formControlName="phone"/>
+        </div>
+        <div class="flex flex-col">
+          <label for="duration" class="font-bold">Длительность</label>
+          <select name="duration" id="duration" class="px-2 py-2 border" formControlName="duration">
+            <option [value]="Duration.All">Все</option>
+            <option [value]="Duration.UpToOneMinute">до 1 минуты</option>
+            <option [value]="Duration.UpToThreeMinutes">до 3 минут</option>
+            <option [value]="Duration.UpToFiveMinutes">до 5 минут</option>
+            <option [value]="Duration.UpToTenMinutes">до 10 минут</option>
+          </select>
+        </div>
+        <button type="button" class="h-12 px-6 bg-blue-500 text-white" (click)="resetQueryParams()">
+          Сбросить фильтры
+        </button>
+      </form>
+      <table class="w-full mt-6">
+        <thead class="border-b-red-500 border-b-2">
+          <tr >
+            <th class="text-start px-4">Дата</th>
+            <th class="text-start px-4">Номер</th>
+            <th class="text-start px-4">Запись сообщения</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngIf="messages$ | async as messages">
+            <ng-container *ngFor="let item of messages | paginate: currentPage : offset">
+              <tr class="h-16 even:bg-slate-100">
+                <td class="px-4">
+                  {{ item.date[0].$.localTime | date : "dd.LL HH:mm" }}
+                </td>
+                <td class="px-4">{{ item.from[0] }}</td>
+                <td class="px-4">
+                  <div class="flex flex-row gap-2 items-center">
+                    <audio controls src="../../../assets/sound.mp3" ></audio>
+                    <a href="../../../assets/sound.mp3" download class="h-min">
+                      <img
+                        src="../assets/icons/download-svgrepo-com.svg"
+                        class="w-6 h-6"
+                      />
+                    </a>
+                  </div>
+                </td>
+              </tr>
+            </ng-container>
+          </ng-container>
+        </tbody>
+      </table>
+      <div class="flex justify-center py-4 gap-2 select-nonew">
+          <button type="button" class="border-2 border-black rounded-full" (click)="paginate(-1)">
+            <img
+              src="../assets/icons/chevron-right-svgrepo-com.svg"
+              class="w-6 h-6 rotate-180"
+            />
+          </button>
+          <ng-container *ngFor="let _ of Array(pagesCount); let i = index">
+            <button  class="border border-blue-500 px-2 rounded-sm"
+                     [class]="{
+                        'bg-blue-300': currentPage === i + 1
+                     }"
+                     (click)="paginateTo(i + 1)"
+            >
+              {{i + 1}}
+            </button>
+          </ng-container>
+          <button type="button" class="border-2 border-black rounded-full" (click)="paginate(1)">
+            <img
+              src="../assets/icons/chevron-right-svgrepo-com.svg"
+              class="w-6 h-6"
+            />
+          </button>
+      </div>
+    </div>
+  </div>
+</div>
